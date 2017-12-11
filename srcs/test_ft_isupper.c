@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 01:29:54 by sclolus           #+#    #+#             */
-/*   Updated: 2017/12/11 01:58:40 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/12/11 01:48:40 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	nothing(void *rdi, void *rsi)
 int	ft_puts(const char *s);
 char	*ft_strdup(const char *s);
 int		ft_isupper(int c);
-int		ft_toupper(int c);
-int		ft_tolower(int c);
 
 int	main(void)
 {
@@ -41,13 +39,13 @@ int	main(void)
 	i = -4096;
 	while (i < 4096 * 8)
 	{
-		if (ft_tolower((int)i) != (tolower((int)i)))
+		if (ft_isupper((int)i) != (isupper((int)i)))
 		{
-			printf("Failure at: %llu, got: %d, expected: %d\n", i, ft_tolower((int)i), (tolower((int)i)));
+			printf("Failure at: %llu, got: %d, expected: %d\n", i, ft_isupper((int)i), (isupper((int)i)));
 			return (EXIT_FAILURE);
 		}
+		printf("%lld\n", i);
 		i++;
 	}
-	printf("SUCCES: OK\n");
 	return (0);
 }

@@ -1,31 +1,25 @@
 ;******************************************************************************;
 ;                                                                              ;
 ;                                                         :::      ::::::::    ;
-;    ft_islower.s                                       :+:      :+:    :+:    ;
+;    ft_toupper.s                                       :+:      :+:    :+:    ;
 ;                                                     +:+ +:+         +:+      ;
 ;    By: sclolus <marvin@42.fr>                     +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
-;    Created: 2017/12/11 01:49:35 by sclolus           #+#    #+#              ;
-;    Updated: 2017/12/11 01:56:44 by sclolus          ###   ########.fr        ;
+;    Created: 2017/12/11 01:52:18 by sclolus           #+#    #+#              ;
+;    Updated: 2017/12/11 01:54:39 by sclolus          ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
-
-	%define ALPHA_LOWER_LOW_BOUNDARY	0x61
-	%define ALPHA_LOWER_HIGH_BOUNDARY	(ALPHA_LOWER_LOW_BOUNDARY + 0x19)
-
-	global	_ft_islower
-
+	global	_ft_toupper
+	extern	_ft_islower
 	section	.text
 
-_ft_islower:
-	mov	al, dil
-	cmp	eax, ALPHA_LOWER_LOW_BOUNDARY
-	jl	.no
-	cmp	eax, ALPHA_LOWER_HIGH_BOUNDARY
-	jg	.no
-	mov	rax, 1
+_ft_toupper:
+	call	_ft_islower
+	test	rax, rax
+	jz		.unchanged
+	mov		rax, rdi
+	sub		rax, 0x20
 	ret
-
-	.no:
-	mov	rax, 0
+	.unchanged:
+	mov	rax, rdi
 	ret

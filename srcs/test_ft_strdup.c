@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/11 01:29:54 by sclolus           #+#    #+#             */
-/*   Updated: 2017/12/11 01:58:40 by sclolus          ###   ########.fr       */
+/*   Created: 2017/12/10 15:55:22 by sclolus           #+#    #+#             */
+/*   Updated: 2017/12/11 01:28:46 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,27 @@ void	nothing(void *rdi, void *rsi)
 int	ft_puts(const char *s);
 char	*ft_strdup(const char *s);
 int		ft_isupper(int c);
-int		ft_toupper(int c);
-int		ft_tolower(int c);
 
 int	main(void)
 {
-	int64_t	i;
-
-	i = -4096;
-	while (i < 4096 * 8)
+	char		str[409600];
+	char		*dup;
+	uint64_t	i = 0;
+	while (i < 40960)
 	{
-		if (ft_tolower((int)i) != (tolower((int)i)))
+		str[i + 1] = 0;
+		memset(str, i % 25600, i);
+		dup = ft_strdup(str);
+		if (strcmp(str, dup))
 		{
-			printf("Failure at: %llu, got: %d, expected: %d\n", i, ft_tolower((int)i), (tolower((int)i)));
+			nothing(dup, str);
+			printf("failure at: %llu\n", i);
 			return (EXIT_FAILURE);
 		}
+//		printf("%llu\n", i);
+		free(dup);
 		i++;
 	}
-	printf("SUCCES: OK\n");
+
 	return (0);
 }
