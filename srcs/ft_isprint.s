@@ -1,26 +1,27 @@
 ;******************************************************************************;
 ;                                                                              ;
 ;                                                         :::      ::::::::    ;
-;    ft_tolower.s                                       :+:      :+:    :+:    ;
+;    ft_isprint.s                                       :+:      :+:    :+:    ;
 ;                                                     +:+ +:+         +:+      ;
 ;    By: sclolus <marvin@42.fr>                     +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
-;    Created: 2017/12/11 01:57:27 by sclolus           #+#    #+#              ;
-;    Updated: 2017/12/11 02:00:17 by sclolus          ###   ########.fr        ;
+;    Created: 2017/12/11 02:04:51 by sclolus           #+#    #+#              ;
+;    Updated: 2017/12/11 02:05:28 by sclolus          ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
 
-	global	_ft_tolower
-	extern	_ft_isupper
+	global	_ft_isprint
+
 	section	.text
 
-_ft_tolower:
-	call	_ft_isupper
-	test	rax, rax
-	jz		.unchanged
-	mov		rax, rdi
-	add		rax, 0x20
+_ft_isprint:
+	mov		al, dil
+	cmp		rax, 32
+	jb		.no
+	cmp		rax, 126
+	ja		.no
+	mov		eax, 1
 	ret
-	.unchanged:
-	mov	rax, rdi
+.no:
+	mov		eax, 0
 	ret

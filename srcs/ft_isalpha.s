@@ -1,26 +1,16 @@
 ;******************************************************************************;
 ;                                                                              ;
 ;                                                         :::      ::::::::    ;
-;    ft_tolower.s                                       :+:      :+:    :+:    ;
+;    ft_isalpha.s                                       :+:      :+:    :+:    ;
 ;                                                     +:+ +:+         +:+      ;
 ;    By: sclolus <marvin@42.fr>                     +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
-;    Created: 2017/12/11 01:57:27 by sclolus           #+#    #+#              ;
-;    Updated: 2017/12/11 02:00:17 by sclolus          ###   ########.fr        ;
+;    Created: 2017/12/11 01:18:49 by sclolus           #+#    #+#              ;
+;    Updated: 2017/12/11 01:19:38 by sclolus          ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
 
-	global	_ft_tolower
-	extern	_ft_isupper
+	global	_ft_isalpha
 	section	.text
 
-_ft_tolower:
-	call	_ft_isupper
-	test	rax, rax
-	jz		.unchanged
-	mov		rax, rdi
-	add		rax, 0x20
-	ret
-	.unchanged:
-	mov	rax, rdi
-	ret
+_ft_isalpha:

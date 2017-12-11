@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 01:29:54 by sclolus           #+#    #+#             */
-/*   Updated: 2017/12/11 02:08:12 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/12/11 02:04:41 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int		ft_isupper(int c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
 int		ft_isprint(int c);
-int		ft_isascii(int c);
 
 int	main(void)
 {
@@ -43,9 +42,9 @@ int	main(void)
 	i = -4096;
 	while (i < 4096 * 8)
 	{
-		if (ft_isascii((int)i) != (isascii((int)i)))
+		if (ft_isprint((int)i) != (isprint((int)i)))
 		{
-			printf("Failure at: %llu, got: %d, expected: %d\n", i, ft_isascii((int)i), (isascii((int)i)));
+			printf("Failure at: %llu, got: %d, expected: %d\n", i, ft_isprint((int)i), (isprint((int)i)));
 			return (EXIT_FAILURE);
 		}
 		i++;

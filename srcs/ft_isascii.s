@@ -1,26 +1,26 @@
 ;******************************************************************************;
 ;                                                                              ;
 ;                                                         :::      ::::::::    ;
-;    ft_tolower.s                                       :+:      :+:    :+:    ;
+;    ft_isascii.s                                       :+:      :+:    :+:    ;
 ;                                                     +:+ +:+         +:+      ;
 ;    By: sclolus <marvin@42.fr>                     +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
-;    Created: 2017/12/11 01:57:27 by sclolus           #+#    #+#              ;
-;    Updated: 2017/12/11 02:00:17 by sclolus          ###   ########.fr        ;
+;    Created: 2017/12/11 02:06:49 by sclolus           #+#    #+#              ;
+;    Updated: 2017/12/11 02:07:37 by sclolus          ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
+	global	_ft_isascii
 
-	global	_ft_tolower
-	extern	_ft_isupper
 	section	.text
 
-_ft_tolower:
-	call	_ft_isupper
-	test	rax, rax
-	jz		.unchanged
-	mov		rax, rdi
-	add		rax, 0x20
+_ft_isascii:
+	mov		al, dil
+	cmp		rax, 0
+	jl		.no
+	cmp		rax, 127
+	jg		.no
+	mov		eax, 1
 	ret
-	.unchanged:
-	mov	rax, rdi
+.no:
+	mov		eax, 0
 	ret
