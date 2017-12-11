@@ -14,7 +14,8 @@ SRCS=	srcs/ft_strdup.s \
 		srcs/ft_memset.s \
 		srcs/ft_isdigit.s \
 		srcs/ft_isprint.s \
-		srcs/ft_strdup.s
+		srcs/ft_strdup.s \
+		srcs/ft_isupper.s
 OBJS= $(SRCS:.s=.o)
 SRCS_C= srcs/test.c
 OBJS_C= $(SRCS_C:.c=.o)
