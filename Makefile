@@ -1,15 +1,20 @@
 NAME= test
+LIB_NAME=libfts.a
 CC=gcc
-CC_FLAGS=  -march=native -Werror -v -Weverything  # -fsanitize=address
+CC_FLAGS=  -march=native -Werror -v -Weverything  #-g3 -fsanitize=address
 ASM_CC= nasm
 ARCH_VERSION=10.12
 LD= ld
 LD_ARCH=x86_64
 LD_FLAGS= -arch $(LD_ARCH) -macosx_version_min $(ARCH_VERSION) -execute -lSystem
-SRCS= srcs/ft_memcpy.s
-#srcs/ft_memset.s
-#srcs/ft_isdigit.s
-#srcs/ft_isprint.s
+SRCS=	srcs/ft_strdup.s \
+		srcs/ft_puts.s \
+		srcs/ft_strlen.s \
+		srcs/ft_memcpy.s \
+		srcs/ft_memset.s \
+		srcs/ft_isdigit.s \
+		srcs/ft_isprint.s \
+		srcs/ft_strdup.s
 OBJS= $(SRCS:.s=.o)
 SRCS_C= srcs/test.c
 OBJS_C= $(SRCS_C:.c=.o)
@@ -20,10 +25,11 @@ ASM_CC_FLAGS= -f $(ASM_CC_ARCH) -g
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(LD) $(LD_FLAGS) $^ -o $@
+	ar rcs $(LIB_NAME) $(OBJS)
+#	$(LD) $(LD_FLAGS) $^ -o $@
 
-prod: $(OBJS) $(OBJS_C)
-	gcc $(OBJS) $(OBJS_C) -Weverything -Werror -o test
+prod: all $(OBJS_C)
+	gcc -L. -lfts $(OBJS_C) -Weverything -Werror -o $(NAME)
 
 %.o: %.s
 	$(ASM_CC) $(ASM_CC_FLAGS) $< -o $@

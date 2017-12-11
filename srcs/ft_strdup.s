@@ -1,31 +1,40 @@
 ;******************************************************************************;
 ;                                                                              ;
 ;                                                         :::      ::::::::    ;
-;    ft_memcpy.s                                        :+:      :+:    :+:    ;
+;    ft_strdup.s                                        :+:      :+:    :+:    ;
 ;                                                     +:+ +:+         +:+      ;
 ;    By: sclolus <marvin@42.fr>                     +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
-;    Created: 2017/12/09 08:48:32 by sclolus           #+#    #+#              ;
-;    Updated: 2017/12/11 01:02:47 by sclolus          ###   ########.fr        ;
+;    Created: 2017/12/10 23:34:31 by sclolus           #+#    #+#              ;
+;    Updated: 2017/12/11 00:44:01 by sclolus          ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
-	global	_ft_memcpy
+
+	global	_ft_strdup
+	extern	_ft_strlen
+	extern	_malloc
+	extern	_ft_memcpy
+
 	section	.text
 
-_ft_memcpy:
-	mov		r9, rdi
-	xor		rax, rax
-	xchg	rax, rdx
-	mov		rcx, 8
-	div		rcx					;get boundary offset
-	push	rdx
-	push	rax
+_ft_strdup:
+	push	rdi
+	call	_ft_strlen				;get string length
 
-	mov		rcx, qword [rsp + 8];get number of bytes to set one per one to align to page boundary
-	cld							; set direction flag to 0, str memory direction is forward
-	repnz	movsb
-	mov		rcx, qword [rsp]
-	repnz	movsq
-	mov		rax, r9
-	add		rsp, 16
+	inc		rax 					;add one byte for \0
+	mov		rdi, rax
+	push	rax
+	sub		rsp, 8
+	call	_malloc
+	add		rsp, 8
+	test	rax, rax
+	je		.enderr
+
+	pop		rdx
+	mov		rdi, rax
+	pop		rsi
+	call	_ft_memcpy
+	ret
+.enderr:
+	add		rsp, 8
 	ret
