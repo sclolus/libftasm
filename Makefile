@@ -1,12 +1,12 @@
 NAME= test
 LIB_NAME=libfts.a
 CC=gcc
-CC_FLAGS=  -march=native -Werror -v -Weverything  #-g3 -fsanitize=address
+CC_FLAGS= -march=native -Werror -v -Weverything  #-g3 -fsanitize=address
 ASM_CC= nasm
 ARCH_VERSION=10.12
 LD= ld
 LD_ARCH=x86_64
-LD_FLAGS= -arch $(LD_ARCH) -macosx_version_min $(ARCH_VERSION) -execute -lSystem
+LD_FLAGS= -arch $(LD_ARCH) -macosx_version_min $(ARCH_VERSION) -execute -lSystem -no-pie
 SRCS=	srcs/ft_strdup.s \
 		srcs/ft_puts.s \
 		srcs/ft_strlen.s \

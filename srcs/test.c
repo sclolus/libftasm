@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 01:29:54 by sclolus           #+#    #+#             */
-/*   Updated: 2017/12/12 07:38:01 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/12/12 08:20:10 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <limits.h>
 #include <fcntl.h>
 #include <sys/stat.h>
-
+#include <errno.h>
 //# define BUF_SIZE 4096 * 16 * 16/* * 4096 */
 
 size_t	ft_strlen(const char *str);
@@ -60,7 +60,10 @@ int	main(int argc, char **argv)
 		}
 		nothing(NULL, NULL);
 //		read(999, &fd, 1);
-		ft_cat(fd);
+		ft_puts("salut les enfants");
+		printf("%d\n", errno);
+//		puts(NULL);
+//		ft_cat(fd);
 	}
 	return (0);
 }

@@ -6,14 +6,16 @@
 ;    By: sclolus <marvin@42.fr>                     +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
 ;    Created: 2017/12/10 21:06:49 by sclolus           #+#    #+#              ;
-;    Updated: 2017/12/12 06:22:37 by sclolus          ###   ########.fr        ;
+;    Updated: 2017/12/12 08:20:51 by sclolus          ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
 
+	default rel
 	%define SYSCALL(n) (0x2000000 | n)
 	%define WRITE 4
-	%define STDOUT 1
+	%define STDOUT 10
 	%define EOF -1 				;dafuq is going on with the standard
+
 
 	section		.data
 NULL_STR:	db '(null)', 0
@@ -35,19 +37,17 @@ _ft_puts:
 	mov		rdi, STDOUT
 	mov		rsi, r10
 	syscall
-	cmp		rax, -1
-	jle		.error
+	jb		.error
 
 	mov		rax, SYSCALL(WRITE)
 	mov		rdi, STDOUT
 	lea		rsi, [rel NEWLINE]
 	mov		rdx, 1 				;len of buffer (LOL)
 	syscall
-	cmp		rax, -1
-	jle		.error
+	jb		.error
 
 	mov		rax, 10
 	ret
-.error:
+	.error:
 	mov		rax, EOF
 	ret
