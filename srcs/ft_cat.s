@@ -6,7 +6,7 @@
 ;    By: sclolus <marvin@42.fr>                     +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
 ;    Created: 2017/12/12 05:58:09 by sclolus           #+#    #+#              ;
-;    Updated: 2017/12/12 06:17:28 by sclolus          ###   ########.fr        ;
+;    Updated: 2017/12/12 06:23:09 by sclolus          ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
 
@@ -27,7 +27,7 @@ buffer:	resb	BUF_SIZE
 _ft_cat:
 	push	rdi					;push fd on stack
 
-	.loop
+.loop:
 
 	mov		rax, SYSCALL(READ) 	;read on fd
 	mov		edi, dword [rsp]
@@ -46,6 +46,6 @@ _ft_cat:
 	jl		.exit
 	jmp		.loop
 
-	.exit:
+.exit:
 	pop		rdi
 	ret
