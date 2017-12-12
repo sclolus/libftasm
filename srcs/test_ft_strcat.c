@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 01:29:54 by sclolus           #+#    #+#             */
-/*   Updated: 2017/12/12 06:16:24 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/12/12 05:22:04 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@
 #include <stdint.h>
 #include <string.h>
 #include <limits.h>
-#include <fcntl.h>
-#include <sys/stat.h>
 
-//# define BUF_SIZE 4096 * 16 * 16/* * 4096 */
+# define BUF_SIZE 4096 * 16 * 16/* * 4096 */
 
 size_t	ft_strlen(const char *str);
 
@@ -42,23 +40,33 @@ int		ft_islower(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 char	*ft_strcat(char *s1, const char *s2);
-void	ft_cat(int fd);
 
-int	main(int argc, char **argv)
+int	main(void)
 {
-	int	fd;
+	static char	dst[BUF_SIZE];
+	static char	src[BUF_SIZE];
+	static char	bin_res[BUF_SIZE];
 
-	(void)argc;
-	(void)argv;
-	(void)fd;
-	if (argc == 2)
+
+	uint32_t	i;
+
+	i = 0;
+	while (i < BUF_SIZE - 1)
 	{
-		if (-1 == (fd = open(argv[1], O_RDONLY)))
+		memset(dst, 42, i / 2);
+		dst[ i / 2 + 1] = 0;
+		memset(bin_res, 42, i / 2);
+		bin_res[ i / 2 + 1] = 0;
+		memset(src, 65, i / 2);
+		ft_strcat(dst, src);
+		strcat(bin_res, src);
+//		nothing(bin_res, dst);
+		if (strcmp(bin_res, dst))
 		{
-			perror(NULL);
+			printf("Failure\n");
 			return (EXIT_FAILURE);
 		}
-		ft_cat(fd);
+		i++;
 	}
 	return (0);
 }

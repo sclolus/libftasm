@@ -19,7 +19,11 @@ SRCS=	srcs/ft_strdup.s \
 		srcs/ft_islower.s \
 		srcs/ft_toupper.s \
 		srcs/ft_tolower.s \
-		srcs/ft_isascii.s
+		srcs/ft_isascii.s \
+		srcs/ft_isalpha.s \
+		srcs/ft_isalnum.s \
+		srcs/ft_strcat.s \
+		srcs/ft_cat.s
 OBJS= $(SRCS:.s=.o)
 SRCS_C= srcs/test.c
 OBJS_C= $(SRCS_C:.c=.o)

@@ -1,31 +1,32 @@
 ;******************************************************************************;
 ;                                                                              ;
 ;                                                         :::      ::::::::    ;
-;    ft_islower.s                                       :+:      :+:    :+:    ;
+;    ft_strcat.s                                        :+:      :+:    :+:    ;
 ;                                                     +:+ +:+         +:+      ;
 ;    By: sclolus <marvin@42.fr>                     +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
-;    Created: 2017/12/11 01:49:35 by sclolus           #+#    #+#              ;
-;    Updated: 2017/12/12 03:09:35 by sclolus          ###   ########.fr        ;
+;    Created: 2017/12/12 04:35:31 by sclolus           #+#    #+#              ;
+;    Updated: 2017/12/12 05:05:11 by sclolus          ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
 
-	%define ALPHA_LOWER_LOW_BOUNDARY	0x61
-	%define ALPHA_LOWER_HIGH_BOUNDARY	(ALPHA_LOWER_LOW_BOUNDARY + 0x19)
-
-	global	_ft_islower
+	global	_ft_strcat
+	extern	_ft_strlen			;needs strlen
+	extern	_ft_memcpy			;needs memset
 
 	section	.text
 
-_ft_islower:
-	mov	eax, edi
-	cmp	eax, ALPHA_LOWER_LOW_BOUNDARY
-	jl	.no
-	cmp	eax, ALPHA_LOWER_HIGH_BOUNDARY
-	jg	.no
-	mov	rax, 1
-	ret
-
-	.no:
-	mov	rax, 0
+_ft_strcat:
+	push	rdi
+	push	rsi
+	call	_ft_strlen
+	mov		rdi, qword [rsp]	;get s2 that was saved in the stack
+	push	rax
+	call	_ft_strlen
+	pop		rdi
+	pop		rsi
+	add		rdi, qword[rsp]
+	mov		rdx, rax
+	call	_ft_memcpy
+	pop		rax
 	ret

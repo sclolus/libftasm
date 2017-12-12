@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 01:29:54 by sclolus           #+#    #+#             */
-/*   Updated: 2017/12/12 06:16:24 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/12/11 02:11:00 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,8 @@
 #include <ctype.h>
 #include <stdint.h>
 #include <string.h>
-#include <limits.h>
-#include <fcntl.h>
-#include <sys/stat.h>
 
-//# define BUF_SIZE 4096 * 16 * 16/* * 4096 */
+//# define BUF_SIZE 4096 * 4096
 
 size_t	ft_strlen(const char *str);
 
@@ -37,28 +34,23 @@ int		ft_isupper(int c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
 int		ft_isprint(int c);
-int		ft_isalpha(int c);
-int		ft_islower(int c);
+int		ft_isascii(int c);
 int		ft_isdigit(int c);
-int		ft_isalnum(int c);
-char	*ft_strcat(char *s1, const char *s2);
-void	ft_cat(int fd);
 
-int	main(int argc, char **argv)
+int	main(void)
 {
-	int	fd;
+	int64_t	i;
 
-	(void)argc;
-	(void)argv;
-	(void)fd;
-	if (argc == 2)
+	i = -4096;
+	while (i < 4096 * 8)
 	{
-		if (-1 == (fd = open(argv[1], O_RDONLY)))
+		if (ft_isdigit((int)i) != (isdigit((int)i)))
 		{
-			perror(NULL);
+			printf("Failure at: %llu, got: %d, expected: %d\n", i, ft_isdigit((int)i), (isdigit((int)i)));
 			return (EXIT_FAILURE);
 		}
-		ft_cat(fd);
+		i++;
 	}
+	printf("SUCCES: OK\n");
 	return (0);
 }

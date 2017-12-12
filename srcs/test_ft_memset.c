@@ -11,6 +11,7 @@ void	*ft_memset(void *b, int c, size_t len);
 #define BUF_SIZE 4096 * 64 * 2 * 13
 #define TEST_VALUE 42
 #define TIME_TEST 1
+
 int	main(void)
 {
 	uint64_t	i;

@@ -1,31 +1,34 @@
 ;******************************************************************************;
 ;                                                                              ;
 ;                                                         :::      ::::::::    ;
-;    ft_islower.s                                       :+:      :+:    :+:    ;
+;    ft_isalnum.s                                       :+:      :+:    :+:    ;
 ;                                                     +:+ +:+         +:+      ;
 ;    By: sclolus <marvin@42.fr>                     +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
-;    Created: 2017/12/11 01:49:35 by sclolus           #+#    #+#              ;
-;    Updated: 2017/12/12 03:09:35 by sclolus          ###   ########.fr        ;
+;    Created: 2017/12/12 04:18:35 by sclolus           #+#    #+#              ;
+;    Updated: 2017/12/12 04:31:43 by sclolus          ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
 
-	%define ALPHA_LOWER_LOW_BOUNDARY	0x61
-	%define ALPHA_LOWER_HIGH_BOUNDARY	(ALPHA_LOWER_LOW_BOUNDARY + 0x19)
-
-	global	_ft_islower
-
+	global	_ft_isalnum
+	extern	_ft_isalpha
+	extern	_ft_isdigit
 	section	.text
 
-_ft_islower:
-	mov	eax, edi
-	cmp	eax, ALPHA_LOWER_LOW_BOUNDARY
-	jl	.no
-	cmp	eax, ALPHA_LOWER_HIGH_BOUNDARY
-	jg	.no
-	mov	rax, 1
+_ft_isalnum:
+	push	rbx
+	xor		rbx, rbx
+	push	rdi
+	call	_ft_isalpha
+	add		rbx, rax
+	pop		rdi
+	call	_ft_isdigit
+	add		rax, rbx
+	test	rax, rax
+	jz		.no
+	pop		rbx
 	ret
-
 	.no:
-	mov	rax, 0
+	xor		rax, rax
+	pop		rbx
 	ret

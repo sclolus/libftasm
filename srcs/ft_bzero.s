@@ -1,25 +1,18 @@
-	global	_start
-	global	_main
+;******************************************************************************;
+;                                                                              ;
+;                                                         :::      ::::::::    ;
+;    ft_bzero.s                                         :+:      :+:    :+:    ;
+;                                                     +:+ +:+         +:+      ;
+;    By: sclolus <marvin@42.fr>                     +#+  +:+       +#+         ;
+;                                                 +#+#+#+#+#+   +#+            ;
+;    Created: 2017/12/12 01:13:43 by sclolus           #+#    #+#              ;
+;    Updated: 2017/12/12 05:35:26 by sclolus          ###   ########.fr        ;
+;                                                                              ;
+;******************************************************************************;
+
 	global	ft_bzero
 
-	section	.data
-mem:	db '123x'
-mem_size:	equ $-mem
-
-	section	.text
-_start:
-	call	_main
-	ret		0
-_main:
-	mov		rdi, mem
-	mov		rsi, mem_size
-	call	ft_bzero
-	mov		rdi, mem
-	ret		0
-
 ft_bzero:
-	push	rbp
-	mov		rbp, rsp
 	and		rsi, rsi
 	je		.end
 	xor		rdx, rdx
@@ -31,6 +24,4 @@ ft_bzero:
 	cmp		rdx, rsi
 	jne		.loop
 	.end:
-	pop		rbp
-	;; mov		rsp, rbp 			;needed ?
 	ret

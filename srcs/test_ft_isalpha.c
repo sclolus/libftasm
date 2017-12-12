@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 01:29:54 by sclolus           #+#    #+#             */
-/*   Updated: 2017/12/12 06:16:24 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/12/12 04:14:18 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@
 #include <stdint.h>
 #include <string.h>
 #include <limits.h>
-#include <fcntl.h>
-#include <sys/stat.h>
 
-//# define BUF_SIZE 4096 * 16 * 16/* * 4096 */
+//# define BUF_SIZE 4096 * 4096
 
 size_t	ft_strlen(const char *str);
 
@@ -39,26 +37,21 @@ int		ft_tolower(int c);
 int		ft_isprint(int c);
 int		ft_isalpha(int c);
 int		ft_islower(int c);
-int		ft_isdigit(int c);
-int		ft_isalnum(int c);
-char	*ft_strcat(char *s1, const char *s2);
-void	ft_cat(int fd);
 
-int	main(int argc, char **argv)
+int	main(void)
 {
-	int	fd;
+	int32_t	i;
 
-	(void)argc;
-	(void)argv;
-	(void)fd;
-	if (argc == 2)
+	i = INT_MIN;
+	while (i < INT_MAX)
 	{
-		if (-1 == (fd = open(argv[1], O_RDONLY)))
+		if (ft_isalpha((int)i) != (isalpha((int)i)))
 		{
-			perror(NULL);
+			printf("Failure at: %d, got: %d, expected: %d\n", i, ft_isalpha((int)i), (isalpha((int)i)));
 			return (EXIT_FAILURE);
 		}
-		ft_cat(fd);
+		i++;
 	}
+	printf("SUCCES: OK\n");
 	return (0);
 }
