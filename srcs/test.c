@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 01:29:54 by sclolus           #+#    #+#             */
-/*   Updated: 2017/12/12 06:16:24 by sclolus          ###   ########.fr       */
+/*   Updated: 2017/12/12 07:38:01 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	main(int argc, char **argv)
 			perror(NULL);
 			return (EXIT_FAILURE);
 		}
+		nothing(NULL, NULL);
+//		read(999, &fd, 1);
 		ft_cat(fd);
 	}
 	return (0);
