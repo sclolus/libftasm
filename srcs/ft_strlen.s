@@ -6,7 +6,7 @@
 ;    By: sclolus <marvin@42.fr>                     +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
 ;    Created: 2017/12/09 08:47:58 by sclolus           #+#    #+#              ;
-;    Updated: 2017/12/10 19:51:46 by sclolus          ###   ########.fr        ;
+;    Updated: 2018/07/25 18:50:19 by sclolus          ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
 
@@ -44,7 +44,7 @@ _ft_strlen:
 	mov		al, byte [rdi - 1]
 	test	al, al
 	jnz		.loop
-	.end:
+.end:
 	dec		rdi
 	xchg	rax, rdi
 	sub		rax, r9

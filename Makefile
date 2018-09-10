@@ -23,7 +23,11 @@ SRCS=	srcs/ft_strdup.s \
 		srcs/ft_isalpha.s \
 		srcs/ft_isalnum.s \
 		srcs/ft_strcat.s \
-		srcs/ft_cat.s
+		srcs/ft_cat.s \
+		srcs/ft_bzero.s \
+		srcs/test_execve.s \
+		srcs/anti_debug.s \
+		srcs/trash_text_code.s
 OBJS= $(SRCS:.s=.o)
 SRCS_C= srcs/test.c
 OBJS_C= $(SRCS_C:.c=.o)
@@ -38,7 +42,7 @@ $(NAME): $(OBJS)
 #	$(LD) $(LD_FLAGS) $^ -o $@
 
 prod: all $(OBJS_C)
-	gcc -L. -lfts $(OBJS_C) -Weverything -Werror -o $(NAME)
+	gcc -L. -lfts $(OBJS_C) $(CC_FLAGS) -o $(NAME)
 
 %.o: %.s
 	$(ASM_CC) $(ASM_CC_FLAGS) $< -o $@
