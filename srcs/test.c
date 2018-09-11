@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 01:29:54 by sclolus           #+#    #+#             */
-/*   Updated: 2018/09/10 08:38:58 by sclolus          ###   ########.fr       */
+/*   Updated: 2018/09/11 13:00:22 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include <sys/mman.h>
 //# define BUF_SIZE 4096 * 16 * 16/* * 4096 */
 
+//char	*test = etext;
 size_t	ft_strlen(const char *str);
 
 void	nothing(void *rdi, void *rsi);
@@ -49,6 +50,7 @@ void	ft_cat(int fd);
 void	ft_execve(char *path, char **argv);
 void	anti_debug(void);
 void	trash_text_code(void *addr, uint64_t size);
+int32_t	breakpoint_detection(void);
 
 uint64_t	factorial(uint64_t n);
 uint64_t	factorial(uint64_t n)
@@ -139,7 +141,16 @@ int	main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 //	anti_debug();
-	trash_text_code((void *)ft_cos, 4096);
-	ft_cos(12.2);
+//	trash_text_code((void *)ft_cos, 4096);
+//	breakpoint_detection();
+//	anti_debug();
+//	ft_cos(12.2);
+
+	char *str1 = strdup("2");
+	char *str2 = strdup("This is a string");
+
+	char *ret = ft_strcat(str1, str2);
+	(void)ret;
+	printf("%s\n", ret);
 	return (0);
 }

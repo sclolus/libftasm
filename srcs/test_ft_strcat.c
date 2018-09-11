@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 01:29:54 by sclolus           #+#    #+#             */
-/*   Updated: 2017/12/12 05:22:04 by sclolus          ###   ########.fr       */
+/*   Updated: 2018/09/11 12:57:37 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ int	main(void)
 		memset(bin_res, 42, i / 2);
 		bin_res[ i / 2 + 1] = 0;
 		memset(src, 65, i / 2);
-		ft_strcat(dst, src);
-		strcat(bin_res, src);
+		char *my_return  = ft_strcat(dst, src);
+		char *his_return = strcat(bin_res, src);
 //		nothing(bin_res, dst);
-		if (strcmp(bin_res, dst))
+		if (strcmp(bin_res, dst) || my_return != dst)
 		{
-			printf("Failure\n");
+			printf("Failure: ret: %p his: %p\n", my_return, his_return);
 			return (EXIT_FAILURE);
 		}
 		i++;

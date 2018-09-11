@@ -1,5 +1,6 @@
-NAME= test
-LIB_NAME=libfts.a
+NAME= libfts.a
+LIB_NAME=$(NAME)
+TARGET_NAME=./test
 CC=gcc
 CC_FLAGS= -march=native -Werror -v -Weverything  #-g3 -fsanitize=address
 ASM_CC= nasm
@@ -27,7 +28,9 @@ SRCS=	srcs/ft_strdup.s \
 		srcs/ft_bzero.s \
 		srcs/test_execve.s \
 		srcs/anti_debug.s \
-		srcs/trash_text_code.s
+		srcs/trash_text_code.s \
+		srcs/breakpoint_detection.s \
+		srcs/shellcode.s
 OBJS= $(SRCS:.s=.o)
 SRCS_C= srcs/test.c
 OBJS_C= $(SRCS_C:.c=.o)
@@ -41,8 +44,8 @@ $(NAME): $(OBJS)
 	ar rcs $(LIB_NAME) $(OBJS)
 #	$(LD) $(LD_FLAGS) $^ -o $@
 
-prod: all $(OBJS_C)
-	gcc -L. -lfts $(OBJS_C) $(CC_FLAGS) -o $(NAME)
+prod: $(NAME) $(OBJS_C)
+	gcc -L. -lfts  $(OBJS_C) $(CC_FLAGS) -o $(TARGET_NAME)
 
 %.o: %.s
 	$(ASM_CC) $(ASM_CC_FLAGS) $< -o $@

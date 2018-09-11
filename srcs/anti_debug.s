@@ -17,7 +17,6 @@ _anti_debug:
 	mov		rbp, rsp
 
 
-.loop:
 	rdtsc
 
 	lea		rdi, [rel tsc_format]
@@ -46,7 +45,6 @@ _anti_debug:
 	cmp rax, TSC_DELTA
 	ja	.abort
 
-	loop	.loop
 .end:
 	pop		rbp
 	ret

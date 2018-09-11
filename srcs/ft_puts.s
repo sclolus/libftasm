@@ -6,14 +6,14 @@
 ;    By: sclolus <marvin@42.fr>                     +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
 ;    Created: 2017/12/10 21:06:49 by sclolus           #+#    #+#              ;
-;    Updated: 2018/09/10 07:59:15 by sclolus          ###   ########.fr        ;
+;    Updated: 2018/09/11 08:39:03 by sclolus          ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
 
 	default rel
 	%define SYSCALL(n) (0x2000000 | n)
 	%define WRITE 4
-	%define STDOUT 10
+	%define STDOUT 1
 	%define EOF -1 				;dafuq is going on with the standard
 
 

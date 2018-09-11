@@ -33,7 +33,7 @@ _trash_text_code:
 	mov rdx, rsi
 	mov rsi, 42
 	call _ft_memset
-.end
+.end:
 	add rsp, 8
 	pop rbp
 	ret

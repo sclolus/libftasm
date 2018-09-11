@@ -6,7 +6,7 @@
 ;    By: sclolus <marvin@42.fr>                     +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
 ;    Created: 2017/12/12 04:35:31 by sclolus           #+#    #+#              ;
-;    Updated: 2017/12/12 05:05:11 by sclolus          ###   ########.fr        ;
+;    Updated: 2018/09/11 13:00:44 by sclolus          ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
 
@@ -27,6 +27,7 @@ _ft_strcat:
 	pop		rsi
 	add		rdi, qword[rsp]
 	mov		rdx, rax
+	inc		rdx
 	call	_ft_memcpy
 	pop		rax
 	ret
