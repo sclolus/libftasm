@@ -1,6 +1,6 @@
 extern _perror
 
-extern _ft_memset
+extern _ft_memcpy
 %define PROT_READ 0x01
 %define PROT_WRITE 0x02
 %define PROT_EXEC 0x04
@@ -9,13 +9,13 @@ extern _ft_memset
 
 section	.text
 
-	;; takes the address of the section and the size of it in arguments
-global	_trash_text_code
-_trash_text_code:
+	;; takes the address of the section, the source address and the size of it in arguments
+global	_replace_text_code
+_replace_text_code:
 	push rbp
 	mov rbp, rsp
-	sub	rsp, 8
 
+	push rdx
 	push rdi
 	push rsi
 
@@ -28,12 +28,13 @@ _trash_text_code:
 	jb  .end_err
 
 	mov rdi, qword [rbp - 16]
-	mov rsi, 42
+	mov rsi, qword [rbp - 8]
 	mov rdx, qword [rbp - 24]
-	call _ft_memset
+	call _ft_memcpy
 
 	pop rsi
 	pop rdi
+	pop rdx
 
 	mov rax, 4095
 	not rax
@@ -42,12 +43,10 @@ _trash_text_code:
 	call _set_mem_zone_prot
 	jb	.end_err
 .end:
-	add rsp, 8
 	leave
 	mov rax, 0
 	ret
 .end_err:
-	add rsp, 8
 	leave
 	mov rax, -1
 	ret
@@ -56,7 +55,6 @@ _trash_text_code:
 	;; Takes addr, size, and prot as arguments
 _set_mem_zone_prot:
 	sub rsp, 8
-
 	mov rcx, rsi
 
 	and rcx, 4095

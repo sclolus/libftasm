@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 01:29:54 by sclolus           #+#    #+#             */
-/*   Updated: 2018/09/11 13:00:22 by sclolus          ###   ########.fr       */
+/*   Updated: 2018/09/13 07:07:15 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,12 @@ char	*ft_strcat(char *s1, const char *s2);
 void	ft_cat(int fd);
 void	ft_execve(char *path, char **argv);
 void	anti_debug(void);
-void	trash_text_code(void *addr, uint64_t size);
+int32_t	trash_text_code(void *addr, uint64_t size);
 int32_t	breakpoint_detection(void);
+
+uint64_t	ft_rand(void);
+int32_t		replace_text_code(void *dst, uint64_t size, void *src);
+uint64_t	test(void);
 
 uint64_t	factorial(uint64_t n);
 uint64_t	factorial(uint64_t n)
@@ -136,21 +140,34 @@ double	ft_cos(double x)
 	return (y);
 }
 
+//# define TEST_SIZE 1000000
 int	main(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
-//	anti_debug();
-//	trash_text_code((void *)ft_cos, 4096);
-//	breakpoint_detection();
-//	anti_debug();
-//	ft_cos(12.2);
 
-	char *str1 = strdup("2");
-	char *str2 = strdup("This is a string");
-
-	char *ret = ft_strcat(str1, str2);
-	(void)ret;
-	printf("%s\n", ret);
+/* 	uint64_t	otable[256]; */
+/* 	uint64_t	i = 0; */
+/* 	ft_bzero(otable, sizeof(otable)); */
+/* 	while (i < TEST_SIZE) */
+/* 	{ */
+/* 		uint64_t tmp = ft_rand(); */
+/* //		printf("%llu\n", tmp); */
+/* 		otable[tmp]++; */
+/* 		i++; */
+/* 	} */
+/* 	i = (uint64_t)-1; */
+/* 	uint64_t	actual_av = 0; */
+/* 	while (++i < 256) */
+/* 	{ */
+/* 		printf("%llu -> %llu\n", i, otable[i]); */
+/* 		actual_av += otable[i]; */
+/* 	} */
+/* 	actual_av /= 256; */
+/* 	printf("Expected average number: %llu, actual_av: %llu\n", (uint64_t)TEST_SIZE / 256UL, actual_av); */
+	printf("replace returned: %d\n", replace_text_code((void *)&ft_cos, 243, (void *)&factorial));
+	printf("trash returned: %d\n", trash_text_code((void *)&main, 205));
+	uint64_t ret = ((uint64_t (*)(uint64_t))ft_cos)(5);
+	printf("ret %llu\n", ret);
 	return (0);
 }
