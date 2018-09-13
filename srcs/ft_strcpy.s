@@ -1,27 +1,36 @@
 ;******************************************************************************;
 ;                                                                              ;
 ;                                                         :::      ::::::::    ;
-;    ft_isprint.s                                       :+:      :+:    :+:    ;
+;    ft_strcpy.s                                        :+:      :+:    :+:    ;
 ;                                                     +:+ +:+         +:+      ;
 ;    By: sclolus <marvin@42.fr>                     +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
-;    Created: 2017/12/11 02:04:51 by sclolus           #+#    #+#              ;
-;    Updated: 2018/09/13 09:58:52 by sclolus          ###   ########.fr        ;
+;    Created: 2018/09/13 09:59:33 by sclolus           #+#    #+#              ;
+;    Updated: 2018/09/13 10:05:26 by sclolus          ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
 
-	global	_ft_isprint
+extern _ft_strlen
+extern _ft_memcpy
+section	.text
+global	_ft_strcpy
 
-	section	.text
+_ft_strcpy:
+	push rbp
+	mov rbp, rsp
 
-_ft_isprint:
-	movsx	rax, edi
-	cmp		rax, 32
-	jb		.no
-	cmp		rax, 126
-	ja		.no
-	mov		eax, 1
-	ret
-.no:
-	mov		eax, 0
+	push rdi
+	push rsi
+
+	xchg rdi, rsi
+	call _ft_strlen
+
+	inc rax
+	mov rdi, qword [rbp - 8]
+	mov rsi, qword [rbp - 16]
+	mov rdx, rax
+	call _ft_memcpy
+
+	add rsp, 16
+	leave
 	ret

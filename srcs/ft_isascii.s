@@ -6,7 +6,7 @@
 ;    By: sclolus <marvin@42.fr>                     +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
 ;    Created: 2017/12/11 02:06:49 by sclolus           #+#    #+#              ;
-;    Updated: 2017/12/11 02:07:37 by sclolus          ###   ########.fr        ;
+;    Updated: 2018/09/13 09:58:50 by sclolus          ###   ########.fr        ;
 ;                                                                              ;
 ;******************************************************************************;
 	global	_ft_isascii
@@ -14,13 +14,13 @@
 	section	.text
 
 _ft_isascii:
-	mov		al, dil
+	movsx	rax, edi
 	cmp		rax, 0
 	jl		.no
 	cmp		rax, 127
 	jg		.no
-	mov		eax, 1
+	mov		rax, 1
 	ret
 .no:
-	mov		eax, 0
+	mov		rax, 0
 	ret

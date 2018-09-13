@@ -2,7 +2,7 @@ NAME= libfts.a
 LIB_NAME=$(NAME)
 TARGET_NAME=./test
 CC=gcc
-CC_FLAGS= -march=native -Werror -v -Weverything  #-g3 -fsanitize=address
+CC_FLAGS= -march=native -Werror -v # -Weverything  #-g3 -fsanitize=address
 ASM_CC= nasm
 ARCH_VERSION=10.12
 LD= ld
@@ -30,7 +30,8 @@ SRCS=	srcs/ft_strdup.s \
 		srcs/trash_text_code.s \
 		srcs/replace_text_code.s \
 		srcs/shellcode.s \
-		srcs/ft_rand.s
+		srcs/ft_rand.s \
+		srcs/ft_strcpy.s
 
 OBJS= $(SRCS:.s=.o)
 SRCS_C= srcs/test.c
