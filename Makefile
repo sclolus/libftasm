@@ -7,7 +7,7 @@ ASM_CC= nasm
 ARCH_VERSION=10.12
 LD= ld
 LD_ARCH=x86_64
-LD_FLAGS= -arch $(LD_ARCH) -macosx_version_min $(ARCH_VERSION) -execute -lSystem  -no-pie
+LD_FLAGS= -arch $(LD_ARCH) -macosx_version_min $(ARCH_VERSION) -execute -lSystem  #  -no-pie
 SRCS=	srcs/ft_strdup.s \
 		srcs/ft_puts.s \
 		srcs/ft_strlen.s \
@@ -26,14 +26,11 @@ SRCS=	srcs/ft_strdup.s \
 		srcs/ft_strcat.s \
 		srcs/ft_cat.s \
 		srcs/ft_bzero.s \
-		srcs/test_execve.s \
 		srcs/anti_debug.s \
 		srcs/trash_text_code.s \
 		srcs/replace_text_code.s \
-		srcs/breakpoint_detection.s \
 		srcs/shellcode.s \
-		srcs/ft_rand.s \
-		srcs/_test.s
+		srcs/ft_rand.s
 
 OBJS= $(SRCS:.s=.o)
 SRCS_C= srcs/test.c

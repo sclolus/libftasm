@@ -6,7 +6,7 @@
 /*   By: sclolus <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 01:29:54 by sclolus           #+#    #+#             */
-/*   Updated: 2018/09/13 07:07:15 by sclolus          ###   ########.fr       */
+/*   Updated: 2018/09/13 09:07:50 by sclolus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <errno.h>
 #include <math.h>
 #include <sys/mman.h>
+#include <assert.h>
 //# define BUF_SIZE 4096 * 16 * 16/* * 4096 */
 
 //char	*test = etext;
@@ -34,27 +35,27 @@ void	nothing(void *rdi, void *rsi)
 	(void)rsi;
 }
 
-int	ft_puts(const char *s);
-char	*ft_strdup(const char *s);
-int		ft_isupper(int c);
-int		ft_toupper(int c);
-int		ft_tolower(int c);
-int		ft_isprint(int c);
-int		ft_isalpha(int c);
-int		ft_islower(int c);
-int		ft_isdigit(int c);
-int		ft_isalnum(int c);
-void	ft_bzero(void *s, size_t n);
-char	*ft_strcat(char *s1, const char *s2);
-void	ft_cat(int fd);
-void	ft_execve(char *path, char **argv);
-void	anti_debug(void);
-int32_t	trash_text_code(void *addr, uint64_t size);
-int32_t	breakpoint_detection(void);
+
+void		*ft_memcpy(void *a, void *b, uint64_t size);
+int			ft_puts(const char *s);
+char		*ft_strdup(const char *s);
+int			ft_isupper(int c);
+int			ft_toupper(int c);
+int			ft_tolower(int c);
+int			ft_isprint(int c);
+int			ft_isalpha(int c);
+int			ft_islower(int c);
+int			ft_isdigit(int c);
+int			ft_isalnum(int c);
+void		ft_bzero(void *s, size_t n);
+char		*ft_strcat(char *s1, const char *s2);
+void		ft_cat(int fd);
+void		anti_debug(void);
+int32_t		trash_text_code(void *addr, uint64_t size);
+int32_t		breakpoint_detection(void);
 
 uint64_t	ft_rand(void);
 int32_t		replace_text_code(void *dst, uint64_t size, void *src);
-uint64_t	test(void);
 
 uint64_t	factorial(uint64_t n);
 uint64_t	factorial(uint64_t n)
@@ -140,6 +141,45 @@ double	ft_cos(double x)
 	return (y);
 }
 
+static void	fill_random_buf(uint8_t *buf, uint64_t len)
+{
+	uint64_t	i;
+
+	i = 0;
+	while (i < (len & 7) && i < len)
+	{
+		buf[i] = (uint8_t)ft_rand();
+		i++;
+	}
+	while (i < len)
+	{
+		*(uint64_t*)(void *)&buf[i] = ft_rand();
+		i += 8;
+	}
+}
+
+#define BUFF_SIZE ((uint64_t)(UINT_MAX))+4325UL
+static int	test_memcpy(void)
+{
+	uint8_t	*buf1 = malloc(BUFF_SIZE);
+	uint8_t	*buf1_cpy = malloc(BUFF_SIZE);
+	uint8_t	*buf2 = malloc(BUFF_SIZE);
+	uint64_t	i;
+
+	i = 0;
+	while (i < 10)
+	{
+		fill_random_buf(buf1, BUFF_SIZE - i);
+		fill_random_buf(buf2, BUFF_SIZE - i);
+		memcpy(buf1_cpy, buf2, BUFF_SIZE - i);
+		assert(buf1 == ft_memcpy(buf1, buf2, BUFF_SIZE - i));
+		assert(memcmp(buf1, buf1_cpy, BUFF_SIZE - i) == 0);
+		printf("test: %llu checked\n", i);
+		i++;
+	}
+	return (1);
+}
+
 //# define TEST_SIZE 1000000
 int	main(int argc, char **argv)
 {
@@ -166,8 +206,10 @@ int	main(int argc, char **argv)
 /* 	actual_av /= 256; */
 /* 	printf("Expected average number: %llu, actual_av: %llu\n", (uint64_t)TEST_SIZE / 256UL, actual_av); */
 	printf("replace returned: %d\n", replace_text_code((void *)&ft_cos, 243, (void *)&factorial));
-	printf("trash returned: %d\n", trash_text_code((void *)&main, 205));
 	uint64_t ret = ((uint64_t (*)(uint64_t))ft_cos)(5);
 	printf("ret %llu\n", ret);
+	test_div(UINT_MAX + 21348UL);
+	assert( puts(NULL) == ft_puts(NULL));
+	assert(test_memcpy());
 	return (0);
 }
